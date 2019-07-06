@@ -2,8 +2,10 @@
   "name": "mongooseex",
   "version": "1.0.0",
   "description": "",
-  "main": "Book.model.js",
+  "main": "app.js",
   "scripts": {
+    "dev": "DEBUG=app:* nodemon app.js",
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
