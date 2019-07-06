@@ -1,0 +1,13 @@
+###
+
+GET http://{{host}} HTTP/1.1
+Content-Type: text/plain
+
+###
+
+GET http://{{host}}/books HTTP/1.1
+Content-Type: application/json
+
+###
+GET http://{{host}}/books/5d204b3faade0d7b820a2eed HTTP/1.1
+Content-Type: application/json
