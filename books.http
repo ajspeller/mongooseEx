@@ -9,5 +9,28 @@ GET http://{{host}}/books HTTP/1.1
 Content-Type: application/json
 
 ###
+
 GET http://{{host}}/books/5d204b3faade0d7b820a2eed HTTP/1.1
 Content-Type: application/json
+
+###
+
+POST http://{{host}}/books HTTP/1.1
+content-type: application/json
+
+{
+    "title": "Game of Throne",
+    "author": "RR",
+    "category": "Fantasy"
+}
+
+###
+
+POST http://{{host}}/books2 HTTP/1.1
+content-type: application/json
+
+{
+    "title": "Return of the King",
+    "author": "RR",
+    "category": "Fantasy"
+}

@@ -27,7 +27,7 @@ app.get('/books', (req, res) => {
   console.log(`Retrieve all books!`);
   Book.find({}).exec((err, books) => {
     if (err) {
-      return res.send({ error: err });
+      return res.status(500).send({ error: err });
     }
     res.json(books);
   });
@@ -38,9 +38,35 @@ app.get('/books/:id', (req, res) => {
   const { id: _id } = req.params;
   Book.findOne({ _id }).exec((err, book) => {
     if (err) {
-      return res.send({ error: err });
+      return res.status(400).send({ error: err });
     }
     res.json(book);
+  });
+});
+
+app.post('/books', (req, res) => {
+  console.log(`Posting a new book`);
+  const { title, author, category } = req.body;
+  const newBook = new Book({
+    title,
+    author,
+    category
+  });
+  newBook.save((err, book) => {
+    if (err) {
+      return res.status(500).send({ error: err });
+    }
+    res.status(200).send(newBook);
+  });
+});
+
+app.post('/books2', (req, res) => {
+  console.log(`Post book using create()`);
+  Book.create(req.body, (err, book) => {
+    if (err) {
+      return res.send({ error: err });
+    }
+    res.send(book);
   });
 });
 
