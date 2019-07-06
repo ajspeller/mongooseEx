@@ -34,3 +34,20 @@ content-type: application/json
     "author": "RR",
     "category": "Fantasy"
 }
+
+###
+
+PUT http://{{host}}/books/5d2057e19fad360ca44a0a79 HTTP/1.1
+content-type: application/json
+
+{
+    "title": "Return of the Jack"
+}
+
+###
+
+DELETE http://{{host}}/books/5d205bbe0579590fedf89771 HTTP/1.1
+content-type: application/json
+
+
+

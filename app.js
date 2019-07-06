@@ -9,12 +9,16 @@ const Book = require('./Book.model');
 const db = process.env.MONGODB_URI;
 const PORT = process.env.PORT || PORT;
 
-mongoose.connect(db, { useNewUrlParser: true }, (err, client) => {
-  if (err) {
-    return console.log({ error: err });
+mongoose.connect(
+  db,
+  { useNewUrlParser: true, useFindAndModify: false },
+  (err, client) => {
+    if (err) {
+      return console.log({ error: err });
+    }
+    console.log(`Database connection established!`);
   }
-  console.log(`Database connection established!`);
-});
+);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -68,6 +72,38 @@ app.post('/books2', (req, res) => {
     }
     res.send(book);
   });
+});
+
+app.put('/books/:id', (req, res) => {
+  console.log(`Updating a book`);
+  const { id: _id } = req.params;
+  Book.findOneAndUpdate(
+    { _id },
+    { $set: { title: req.body.title } },
+    { upsert: true },
+    (err, updatedBook) => {
+      if (err) {
+        return res.send({ error: err });
+      }
+      res.status(204).send(updatedBook);
+    }
+  );
+});
+
+app.delete('/books/:id', (req, res) => {
+  console.log(`Delete a book`);
+  const { id: _id } = req.params;
+  Book.findOneAndRemove(
+    {
+      _id
+    },
+    (err, book) => {
+      if (err) {
+        return res.status(404).send({ error: err });
+      }
+      res.status(204).send(book);
+    }
+  );
 });
 
 app.listen(PORT, () =>
